@@ -1,15 +1,26 @@
-require 'httparty'
+require './lookup_cache.rb'
 
 class Scraper
-  def rubies
-    all_meetups.select{ |r| r.fetch("name") =~ /Memphis Ruby/ }
+  def initialize(cache: nil)
+    @cache = cache
+    self
+  end
+
+  attr_reader :cache
+
+  def by_keyword(keyword)
+    all_meetups.select do |meetup|
+      meetup.fetch("name") =~ /#{keyword.to_s.strip}/i
+    end
   end
 
   private
-  def all_meetups
-    response = HTTParty.get(meetup_url)
+  def fetcher
+    LookupCache.new(cache: cache)
+  end
 
-    response.fetch("results")
+  def all_meetups
+    fetcher.lookup(meetup_url)
   end
 
   def meetup_url

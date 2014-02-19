@@ -3,6 +3,7 @@ GEM
   specs:
     backports (3.6.0)
     coderay (1.1.0)
+    dalli (2.6.4)
     dotenv (0.9.0)
     foreman (0.63.0)
       dotenv (>= 0.7)
@@ -18,6 +19,8 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    puma (2.7.1)
+      rack (>= 1.1, < 2.0)
     rack (1.5.2)
     rack-protection (1.5.2)
       rack
@@ -42,9 +45,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dalli
   dotenv
   foreman
   httparty
   pry
+  puma
   sinatra
   sinatra-contrib
