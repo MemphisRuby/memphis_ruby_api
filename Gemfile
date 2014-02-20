@@ -12,6 +12,8 @@ gem "dalli"
 gem "httparty"
 gem "dotenv"
 
+gem "rack-cors"
+
 group :development do
   gem "pry"
   gem "foreman"

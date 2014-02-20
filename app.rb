@@ -5,6 +5,7 @@ require 'sinatra'
 require 'sinatra/json'
 
 require 'dalli'
+require 'rack/cors'
 
 require './scraper'
 
@@ -17,6 +18,13 @@ class ApiApp < Sinatra::Base
        :socket_timeout => 1.5,
        :socket_failure_delay => 0.2
     })
+
+  use Rack::Cors do
+    allow do
+      origins '*'
+      resource '/calendar.json', :headers => :any, :methods => :get
+    end
+  end
 
   get '/' do
     redirect to('/calendar.json?keyword=memphis+ruby')
