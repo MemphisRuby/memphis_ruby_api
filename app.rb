@@ -33,7 +33,10 @@ class ApiApp < Sinatra::Base
   get '/calendar.json' do
     keyword = params[:keyword]
 
-    json meetups: scraper.by_keyword(keyword)
+    json({
+      "_pull_requests_appreciated" => "https://github.com/MemphisRuby/memphis_ruby_api",
+      "meetups" => scraper.by_keyword(keyword),
+    })
   end
 
   def scraper
