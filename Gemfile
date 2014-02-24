@@ -9,6 +9,8 @@ gem "puma"
 
 gem "dalli"
 
+gem "newrelic_rpm"
+
 gem "httparty"
 gem "dotenv"
 

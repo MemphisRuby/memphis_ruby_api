@@ -4,6 +4,8 @@ Dotenv.load
 require 'sinatra'
 require 'sinatra/json'
 
+require 'newrelic_rpm'
+
 require 'dalli'
 require 'rack/cors'
 

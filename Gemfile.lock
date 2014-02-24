@@ -15,6 +15,7 @@ GEM
     method_source (0.8.2)
     multi_json (1.8.4)
     multi_xml (0.5.5)
+    newrelic_rpm (3.7.2.195)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -50,6 +51,7 @@ DEPENDENCIES
   dotenv
   foreman
   httparty
+  newrelic_rpm
   pry
   puma
   rack-cors
