@@ -28,17 +28,29 @@ class ApiApp < Sinatra::Base
     end
   end
 
+
   get '/' do
     redirect to('/calendar.json?keyword=memphis+ruby')
   end
 
   get '/calendar.json' do
     keyword = params[:keyword]
+    puts keyword
 
     json({
       "_pull_requests_appreciated" => "https://github.com/MemphisRuby/memphis_ruby_api",
       "meetups" => scraper.by_keyword(keyword),
     })
+  end
+
+  # Redirects to the first meetup url it finds for the term.
+  get '/:meetup' do
+    keyword = params[:meetup]
+    if result = scraper.by_keyword(keyword).first
+      redirect to(result["event_url"])
+    else
+      pass
+    end
   end
 
   def scraper
