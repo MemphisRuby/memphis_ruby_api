@@ -20,10 +20,10 @@ class Scraper
   end
 
   def all_meetups
-    fetcher.lookup(meetup_url)
+    fetcher.lookup(meetup_urls)
   end
 
-  def meetup_url
-    ENV.fetch("MEETUP_URL")
+  def meetup_urls
+    ENV.fetch("MEETUP_URLS").split(",")
   end
 end

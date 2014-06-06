@@ -1,5 +1,7 @@
 require 'httparty'
 require 'date'
+require 'base64'
+require 'pry'
 
 class LookupCache
   def initialize(cache: nil)
@@ -8,21 +10,31 @@ class LookupCache
 
   attr_reader :cache
 
-  def lookup(url)
-    key = request_key(url)
+  def lookup(urls)
+    key = request_key(urls)
 
-    cache.get(key) || fill_cache(url, key)
+    cache.get(key) || fill_cache(urls, key)
   end
 
-  def fill_cache(url, key)
+  def fill_cache(urls, key)
     puts "Setting #{key}"
-    result = HTTParty.get(url).fetch("results")
-    cache.set(key, result)
-    result
+    results = []
+
+    urls.each do |url|
+      resp   = HTTParty.get(url)
+      result = resp.fetch("results")
+      results << result
+    end
+
+    results = results.flatten.sort_by { |r| r["time"] }
+
+    cache.set(key, results)
+    results
   end
 
   def request_key(request)
-    [datemask, request].join('-')
+    hashed = Base64.encode64(request.to_s)
+    [datemask, hashed].join('-')
   end
 
   def datemask
