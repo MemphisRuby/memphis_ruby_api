@@ -48,7 +48,7 @@ class ApiApp < Sinatra::Base
     if result = scraper.by_keyword(keyword).first
       redirect to(result["event_url"])
     else
-      pass
+      redirect to('http://www.meetup.com/memphis-technology-user-groups/')
     end
   end
 
