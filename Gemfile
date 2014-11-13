@@ -16,7 +16,5 @@ gem "dotenv"
 
 gem "rack-cors"
 
-group :development do
-  gem "pry"
-  gem "foreman"
-end
+gem "pry"
+gem "foreman"
