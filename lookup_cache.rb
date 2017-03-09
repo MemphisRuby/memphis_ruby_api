@@ -22,7 +22,14 @@ class LookupCache
 
     urls.each do |url|
       resp   = HTTParty.get(url)
+      begin
       result = resp.fetch("results")
+      rescue KeyError => err
+        puts "*** Unexpected JSON results!"
+        puts err.message
+        puts resp
+        puts "***"
+      end
       results << result
     end
 
